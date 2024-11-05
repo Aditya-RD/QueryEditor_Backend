@@ -1,0 +1,324 @@
+{
+  "info": {
+    "name": "CRUD API Collection",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Workbooks",
+      "item": [
+        {
+          "name": "Create Workbook",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Finance Workbook\",\n    \"description\": \"Workbook for financial data\",\n    \"profileId\": 101\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/workbooks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["workbooks"]
+            }
+          }
+        },
+        {
+          "name": "Get All Workbooks",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/workbooks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["workbooks"]
+            }
+          }
+        },
+        {
+          "name": "Update Workbook",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Updated Workbook\",\n    \"description\": \"Updated description\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/workbooks/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["workbooks", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Workbook",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:5000/workbooks/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["workbooks", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Worksheets",
+      "item": [
+        {
+          "name": "Create Worksheet",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"workbookId\": 1,\n    \"name\": \"Sheet1\",\n    \"editorText\": \"SELECT * FROM Employees\",\n    \"designConfig\": \"{\\\"layout\\\": \\\"grid\\\"}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/worksheets",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["worksheets"]
+            }
+          }
+        },
+        {
+          "name": "Get All Worksheets by Workbook",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/worksheets/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["worksheets", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Worksheet",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"name\": \"Updated Sheet\",\n    \"editorText\": \"SELECT * FROM UpdatedTable\",\n    \"designConfig\": \"{\\\"layout\\\": \\\"chart\\\"}\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/worksheets/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["worksheets", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Worksheet",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:5000/worksheets/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["worksheets", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "SavedQueries",
+      "item": [
+        {
+          "name": "Create Saved Query",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"worksheetId\": 1,\n    \"queryText\": \"SELECT * FROM Employees WHERE Department = 'Sales'\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/saved-queries",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["saved-queries"]
+            }
+          }
+        },
+        {
+          "name": "Get All Saved Queries by Worksheet",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/saved-queries/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["saved-queries", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Saved Query",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"queryText\": \"SELECT * FROM Employees WHERE Department = 'HR'\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/saved-queries/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["saved-queries", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Saved Query",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:5000/saved-queries/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["saved-queries", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "ExecutedQueries",
+      "item": [
+        {
+          "name": "Create Executed Query",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"worksheetId\": 1,\n    \"queryText\": \"SELECT COUNT(*) FROM Orders\",\n    \"executionResult\": \"500 rows returned\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/executed-queries",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["executed-queries"]
+            }
+          }
+        },
+        {
+          "name": "Get All Executed Queries by Worksheet",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:5000/executed-queries/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["executed-queries", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Executed Query",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"queryText\": \"SELECT COUNT(*) FROM UpdatedOrders\",\n    \"executionResult\": \"600 rows returned\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:5000/executed-queries/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["executed-queries", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Executed Query",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:5000/executed-queries/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "5000",
+              "path": ["executed-queries", "1"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
