@@ -8,9 +8,10 @@ router.post('/', async (req, res) => {
   const db = req.app.locals.db;
 
   try {
-    const query = `INSERT INTO Worksheets (WorkbookID, Name, EditorText, DesignConfig) VALUES (?, ?, ?, ?)`;
-    await db.query(query, [workbookId, name, editorText, designConfig]);
-    res.status(201).send('Worksheet created');
+    const query = `INSERT INTO Worksheets (WorkbookID, Name, EditorText, DesignConfig) OUTPUT INSERTED.WorksheetID VALUES (?, ?, ?, ?)`;
+    const result = await db.query(query, [workbookId, name, editorText, designConfig]);
+    const worksheetId = result[0].WorksheetID
+    res.status(201).send({message: 'Worksheet created', worksheetId});
   } catch (err) {
     console.error('Error creating worksheet:', err);
     res.status(500).send('Error creating worksheet');
@@ -56,9 +57,32 @@ router.put('/:id', async (req, res) => {
   const { name, editorText, designConfig } = req.body;
   const db = req.app.locals.db;
 
+  // Create query parts based on provided fields
+  const updates = [];
+  const values = [];
+
+  if (name !== undefined) {
+    updates.push('Name = ?');
+    values.push(name);
+  }
+  if (editorText !== undefined) {
+    updates.push('EditorText = ?');
+    values.push(editorText);
+  }
+  if (designConfig !== undefined) {
+    updates.push('DesignConfig = ?');
+    values.push(designConfig);
+  }
+
+  if (updates.length === 0) {
+    return res.status(400).send('No valid fields to update');
+  }
+
+  const query = `UPDATE Worksheets SET ${updates.join(', ')} WHERE WorksheetID = ?`;
+  values.push(id);
+
   try {
-    const query = `UPDATE Worksheets SET Name = ?, EditorText = ?, DesignConfig = ? WHERE WorksheetID = ?`;
-    await db.query(query, [name, editorText, designConfig, id]);
+    await db.query(query, values);
     res.send('Worksheet updated');
   } catch (err) {
     console.error('Error updating worksheet:', err);
