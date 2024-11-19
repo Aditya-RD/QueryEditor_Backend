@@ -5,6 +5,7 @@ const cors = require('cors');
 const { connectToDb } = require('./dbConfig');
 
 // Import routes
+const resetDBConnectionRoutes = require('./routes/resetConnection');
 const workbooksRoutes = require('./routes/workbooks');
 const worksheetsRoutes = require('./routes/worksheets');
 const savedQueriesRoutes = require('./routes/savedQueries');
@@ -34,6 +35,7 @@ connectToDb().then((connection) => {
 });
 
 // Use routes
+app.use('/api', resetDBConnectionRoutes);
 app.use('/workbooks', workbooksRoutes);
 app.use('/worksheets', worksheetsRoutes);
 app.use('/saved-queries', savedQueriesRoutes);

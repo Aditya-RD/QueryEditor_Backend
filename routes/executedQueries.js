@@ -23,7 +23,7 @@ router.get('/:worksheetId', async (req, res) => {
   const db = req.app.locals.db;
 
   try {
-    const query = `SELECT ExecutedQueryId, WorksheetID, QueryText, ExecutionResult FROM ExecutedQueries WHERE WorksheetID = ?`;
+    const query = `SELECT ExecutedQueryId, WorksheetID, Timestamp, QueryText, ExecutionResult FROM ExecutedQueries WHERE WorksheetID = ?`;
     const result = await db.query(query, [worksheetId]);
     res.json(result);
   } catch (err) {

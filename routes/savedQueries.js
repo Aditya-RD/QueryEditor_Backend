@@ -4,12 +4,12 @@ const router = express.Router();
 
 // Create a new saved query
 router.post('/', async (req, res) => {
-  const { worksheetId, queryText } = req.body;
+  const { worksheetId, queryText, queryName } = req.body;
   const db = req.app.locals.db;
 
   try {
-    const query = `INSERT INTO SavedQueries (WorksheetID, QueryText) VALUES (?, ?)`;
-    await db.query(query, [worksheetId, queryText]);
+    const query = `INSERT INTO SavedQueries (WorksheetID, QueryText, QueryName) VALUES (?, ?, ?)`;
+    await db.query(query, [worksheetId, queryText, queryName]);
     res.status(201).send('Saved query created');
   } catch (err) {
     console.error('Error creating saved query:', err);
@@ -17,17 +17,16 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Read all saved queries for a specific worksheet
 router.get('/:worksheetId', async (req, res) => {
   const { worksheetId } = req.params;
   const db = req.app.locals.db;
 
   try {
-    const query = `SELECT SavedQueryId, WorksheetID, QueryText FROM SavedQueries WHERE WorksheetID = ?`;
+    const query = `SELECT SavedQueryId, WorksheetID, Timestamp, QueryName, QueryText FROM SavedQueries WHERE WorksheetID = ?`;
     const result = await db.query(query, [worksheetId]);
     res.json(result);
   } catch (err) {
-    console.error('Error fetching saved queries:', err);
+    console.error('Error fetching saved queries:', err.message, err.stack);
     res.status(500).send('Error fetching saved queries');
   }
 });
